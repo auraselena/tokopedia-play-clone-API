@@ -4,8 +4,7 @@ const Video = require("../model/videoModel");
 async function allVideos (req, res) {
   try {
     const videoData = await Video.find();
-    console.log("video data", videoData);
-    res.json(videoData);
+    res.json({data: videoData});
   } catch (error) {
     console.error("Error fetching video data:", error);
     res.status(500).send({ success: false, message: "Failed to fetch video data." });

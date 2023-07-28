@@ -9,15 +9,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const mongoString = process.env.DATABASE_URL;
 
-// mongoose
-//   .connect(mongoString, { useNewUrlParser: true, useUnifiedTopology: true })
-//   .then(() => {
-//     console.log("Connected to MongoDB");
-//   })
-//   .catch((err) => {
-//     console.error("Error connecting to MongoDB:", err);
-//   });
-
 app.get("/api", (req, res) => {
   res.send("🎶 This is Tokplay API 🎵");
 });
