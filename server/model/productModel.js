@@ -13,6 +13,10 @@ const productSchema = new mongoose.Schema({
     required: true,
     type: String,
   },
+  imgUrl: {
+    required: true,
+    type: String
+  },
   title: {
     required: true,
     type: String,

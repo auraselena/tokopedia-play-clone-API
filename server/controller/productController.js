@@ -2,11 +2,12 @@ const Product = require("../model/productModel");
 
 const insertProduct = (req, res) => {
   try {
-    const { productID, productUrl, title, price } = req.body;
+    const { productID, productUrl, imgUrl, title, price } = req.body;
 
     const newProduct = new Product({
       productID,
       productUrl,
+      imgUrl,
       title,
       price,
     });
@@ -30,4 +31,19 @@ const productList = async (req, res) => {
   }
 };
 
-module.exports = { insertProduct, productList };
+const allProducts = async (req,res) => {
+  try {
+    const keyword = req.query.keyword || "";
+    const query = keyword ? { $or: [
+      { title: { $regex: keyword, $options: "i" } }
+    ]} : {};
+    const products = await Product.find(query);
+    res.send({success: true, data: products})
+  } catch (error) {
+    console.error();
+    res.status(500).send({success: false, message: error.message})
+    
+  }
+}
+
+module.exports = { insertProduct, productList, allProducts };

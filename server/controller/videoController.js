@@ -11,6 +11,17 @@ async function allVideos (req, res) {
   }
 };
 
+async function videoSearched (req, res) {
+  try {
+    const id = req.query.id;
+    const videoData = await Video.find({videoID:id});
+    res.json({data: videoData});
+  } catch (error) {
+    console.error("Error fetching video data:", error);
+    res.status(500).send({ success: false, message: "Failed to fetch video data." });
+  }
+};
+
 async function insertVideo (req, res) {
   try {
     const {videoID, thumbnailUrl} = req.body;
@@ -32,11 +43,11 @@ const aVideo = async (req, res) => {
   try {
     const videoId = req.params.videoID;
     const videoDetail = await Video.find({ videoID: videoId });
-    res.send({ success: true, message: "Get video detail success!", data: videoDetail });
+    res.send({ success: true, message: "Get video detail success!", videoDetail });
   } catch (error) {
     console.log(error.message);
     res.status(500).send({ success: false, message: "Something is wrong!" });
   }
 };
 
-module.exports = { allVideos, aVideo, insertVideo };
+module.exports = { allVideos, aVideo, insertVideo, videoSearched };
